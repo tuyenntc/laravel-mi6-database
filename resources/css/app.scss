@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Noto+Serif+Display:wght@200;400;700&display=swap');
+
+body {
+    background-color: #2B5554;
+    color: #fff;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+.navigation {
+    background-color: #163838;
+    font-family: 'Cutive Mono', monospace;
+    transition: all 0.5s linear;
+    width: 300px;
+
+    &.closed {
+        width: 0px;
+    }
+    .seal {
+        background-image: url('/resources/images/mi6-seal.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin: 20px 0;
+        height: 150px;
+        width: 100%;
+
+        .controller {
+            align-items: center;
+            background-color: #163838;
+            display: flex;
+            height: 2rem;
+            justify-content: center;
+            left: 100%;
+            position: relative;
+            top: 10px;
+            width: 1.5rem;
+            p {
+                margin: 0;
+            }
+        }
+    }
+    div.links {
+        height: 50px;
+        margin: 0;
+        width: 100%;
+        div {
+            overflow: hidden;
+            &.selected {
+                background-color: #2B5554;
+            }
+        }
+        p {
+            margin: 20px 20px;
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.content {
+    background-image: url('/resources/images/mi6-seal-bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: 'Noto Serif Display', serif;
+    flex-grow: 1;
+    overflow: scroll;
+    padding-left: 40px;
+
+    &.centered {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+    }
+}
