@@ -22,3 +22,8 @@ Route::get('/people-of-interest', function () {
     $page = 'people-of-interest';
     return view('people-of-interest', compact('page'));
 })->name('people-of-interest');
+
+Route::get('/missions', function () {
+    $page = 'missions';
+    return view('missions', compact('page'));
+})->name('missions');

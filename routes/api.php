@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\PersonController;
 use App\Http\Controllers\Api\StatusController;
+use App\Http\Controllers\Api\MissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('people', [PersonController::class, 'index']);
 Route::get('people/{personId}', [PersonController::class, 'show']);
 Route::get('statuses', [StatusController::class, 'index']);
+Route::get('missions', [MissionController::class, 'index']);
+Route::get('/missions/{mission_id}', [MissionController::class, 'show']);

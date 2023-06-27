@@ -11,5 +11,8 @@
         <div class="{{ $page == 'people-of-interest' ? 'selected' : '' }}">
             <p><a href="{{ route('people-of-interest') }}">People of Interest</a></p>
         </div>
+        <div class="{{ $page == 'missions' ? 'selected' : '' }}">
+            <p><a href="{{ route('missions') }}">Missions</a></p>
+        </div>
     </div>
 </div>

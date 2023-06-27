@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 export const StatusFilter = ({selectedStatus, setSelectedStatus}) => {
     const [statuses, setStatuses] = useState([])
 
     const loadStatuses = async () => {
-        const response = await fetch('/api/statuses')
-        const data = await response.json()
-        setStatuses(data)
+        // Request with Axios:
+        try {
+            const response = await axios.get('/api/statuses');
+            console.log(response)
+            setStatuses(response.data)
+        } catch (err) {
+            console.log(err)
+        }
+        
+        // Request with fetch:
+        // const response = await fetch('/api/statuses')
+        // const data = await response.json()
+        // setStatuses(data)
     }
 
     useEffect(() => {

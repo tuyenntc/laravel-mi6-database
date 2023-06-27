@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PersonDetail } from '../PersonDetail/PersonDetail'
 import { StatusFilter } from '../StatusFilter/StatusFIlter'
+import axios from 'axios'
 
 export const People = () => {
     const [people, setPeople] = useState(null)
@@ -8,9 +9,17 @@ export const People = () => {
     const [selectedStatus, setSelectedStatus] = useState('')
 
     const getData = async () => {
-        const response = await fetch('/api/people' + (selectedStatus && selectedStatus !== '' ? '?status=' + encodeURIComponent(selectedStatus) : ''))
-        const data = await response.json()
-        setPeople(data)
+        // Request with Axios:
+        try {
+            const response = await axios.get('/api/people' + (selectedStatus && selectedStatus !== '' ? '?status=' + encodeURIComponent(selectedStatus) : ''))
+            setPeople(response.data)
+        } catch (err) {
+            console.log(err)            
+        }
+        // Request with fetch:
+        // const response = await fetch('/api/people' + (selectedStatus && selectedStatus !== '' ? '?status=' + encodeURIComponent(selectedStatus) : ''))
+        // const data = await response.json()
+        // setPeople(data)
     }
 
     useEffect(() => {
