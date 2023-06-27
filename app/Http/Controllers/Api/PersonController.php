@@ -9,9 +9,15 @@ use App\Models\Person;
 
 class PersonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $people = Person::get();
+        $status = $request->input('status');
+
+        if ($status) {
+            $people = Person::where('status_id', $status)->get();
+        } else {
+            $people = Person::get();
+        }
 
         return $people;
     }
