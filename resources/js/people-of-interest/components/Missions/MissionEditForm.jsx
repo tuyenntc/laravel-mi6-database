@@ -30,6 +30,14 @@ export const MissionEditForm = ({setMissionId, missionId}) => {
         console.log('submit clicked')
     }
 
+    const handleInputChange = (event) => {
+        setMission(previous_values => {
+            return ({...previous_values, 
+                [event.target.name]: event.target.value
+            });
+        });
+    }
+
     return <>
         <h2>Edit mission #{missionId}</h2>
 
@@ -38,12 +46,12 @@ export const MissionEditForm = ({setMissionId, missionId}) => {
                 <form onSubmit={(e)=> {submitMissionEdit(e)}}>
                     <label>
                         Name:
-                        <input type="text" name="name" value={mission.name}/><br/>
+                        <input type="text" name="name" value={mission.name} onChange={handleInputChange}/><br/>
                     </label>
 
                     <label>
                         Year: 
-                        <input type="number" name="year" value={mission.year}/><br/>
+                        <input type="number" name="year" value={mission.year} onChange={handleInputChange}/><br/>
                     </label>
 
                     <button type="submit">Save</button>
