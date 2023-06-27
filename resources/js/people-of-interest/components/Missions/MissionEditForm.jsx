@@ -27,7 +27,13 @@ export const MissionEditForm = ({setMissionId, missionId}) => {
     const submitMissionEdit = async (e) => {
         e.preventDefault();
 
-        console.log('submit clicked')
+        try {
+            const response = await axios.post('/api/missions/store', mission);
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleInputChange = (event) => {
