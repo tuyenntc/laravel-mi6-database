@@ -28,6 +28,7 @@ export const People = () => {
 
     return (
         <div>
+            <h1>People of Interest Database</h1>
             <StatusFilter selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
             {personId
             ?

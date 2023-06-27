@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { People } from "./components/People/People";
+import { Missions } from "./components/Missions/Missions";
 
 export function App () {
     const [content, setContent] = useState('');
@@ -13,7 +14,7 @@ export function App () {
             return <People />;
         }
         else if (content.includes('missions')) {
-            return <div>Missions will be here</div>;
+            return <Missions />;
         }
         else {
             return '';
@@ -22,7 +23,6 @@ export function App () {
 
     return (
         <>
-            <h1>People of Interest Database</h1>
             {returnComponent()}
         </>
     )
