@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { MissionEditForm } from "./MissionEditForm";
 
 export const Missions = () => {
 
-    const [missions, setMissions] = useState([]);
+    const [missions, setMissions] = useState([])
+    const [missionId, setMissionId] = useState(null)
 
     const loadMissions = async () => {
         // Request with Axios:
@@ -26,12 +28,16 @@ export const Missions = () => {
     return <>
         <h1>Missions database</h1>
        { 
+            missionId ? 
+                <MissionEditForm missionId={missionId} setMissionId={setMissionId}/>
+            :
             missions.map((mission, key) => {
                 return (
                     <p key={key}>
                         Name: {mission.name} <br/>
                         Year: {mission.year}<br/>
                         Outcome: {mission.outcome === null ? 'Unknown' : (mission.outcome == 1 ? 'Successful' : 'Failed')}<br/>
+                        <button onClick={() => {setMissionId(mission.id)}}>Edit</button>
                     </p>
                 )
             })}
