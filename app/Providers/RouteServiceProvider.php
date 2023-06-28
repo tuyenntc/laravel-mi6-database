@@ -33,6 +33,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
+
+            // keep this as the last file to be loaded into routing:
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
