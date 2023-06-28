@@ -26,6 +26,22 @@
                 <a href="#">Missions</a>
             </p>
         </div>
+
+        <div
+            onclick="reactRedirectCallbackFunction('/register'); return false;"
+        >
+            <p>
+                Register
+            </p>
+        </div>
+
+        <div
+            onclick="reactRedirectCallbackFunction('/login'); return false;"
+        >
+            <p>
+                Login
+            </p>
+        </div>
     </div>
 </div>
 
