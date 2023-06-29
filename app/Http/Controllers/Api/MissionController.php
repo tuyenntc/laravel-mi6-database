@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Mission;
+use App\Models\Person;
 
 class MissionController extends Controller
 {
@@ -35,5 +36,35 @@ class MissionController extends Controller
         return [
             'success_message' => 'Mission successfully saved'
         ];
+    }
+
+    public function assignPerson(Request $request)
+    {
+        $mission_id = $request->input('missionId');
+
+        $mission = Mission::findOrFail($mission_id);
+
+        $person_id = $request->input('personId');
+
+        $person = Person::findOrFail($person_id);
+
+        $mission->people()->attach($person->id);
+
+        return 'success';
+    }
+
+    public function unassignPerson(Request $request)
+    {
+        $mission_id = $request->input('missionId');
+
+        $mission = Mission::findOrFail($mission_id);
+
+        $person_id = $request->input('personId');
+
+        $person = Person::findOrFail($person_id);
+
+        $mission->people()->detach($person->id);
+
+        return 'success';
     }
 }

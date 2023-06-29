@@ -26,5 +26,7 @@ Route::get('people', [PersonController::class, 'index']);
 Route::get('people/{personId}', [PersonController::class, 'show']);
 Route::get('statuses', [StatusController::class, 'index']);
 Route::get('missions', [MissionController::class, 'index']);
-Route::get('/missions/{mission_id}', [MissionController::class, 'show']);
+Route::get('/missions/{mission_id}', [MissionController::class, 'show'])->whereNumber('mission_id');
 Route::post('/missions/store', [MissionController::class, 'store']);
+Route::post('/missions/assign-person', [MissionController::class, 'assignPerson']);
+Route::post('/missions/unassign-person', [MissionController::class, 'unassignPerson']);

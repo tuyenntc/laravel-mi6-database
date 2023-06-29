@@ -47,7 +47,7 @@
 
 <script>
 // a function that can be used to redirect React app
-let reactRedirectCallbackFunction = null;
+let reactRedirectCallbackFunction = (url) => window.location = url;
 
 const setReactRedirectCallbackFunction = (callbackFunction) => {
     reactRedirectCallbackFunction = callbackFunction;

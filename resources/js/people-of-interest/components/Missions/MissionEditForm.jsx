@@ -4,6 +4,8 @@ import axios from "axios";
 export const MissionEditForm = ({setMissionId, missionId}) => {
 
     const [mission, setMission] = useState(null);
+    const [people, setPeople] = useState([]);
+    const [personId, setPersonId] = useState(null);
 
     const loadMission = async () => {
         // Request with Axios:
@@ -20,8 +22,18 @@ export const MissionEditForm = ({setMissionId, missionId}) => {
         // setMission(data)
     }
 
+    const loadPeople = async () => {
+        try {
+            const response = await axios.get('/api/people')
+            setPeople(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         loadMission()
+        loadPeople()
     }, [])
 
     const submitMissionEdit = async (e) => {
@@ -44,27 +56,99 @@ export const MissionEditForm = ({setMissionId, missionId}) => {
         });
     }
 
-    return <>
-        <h2>Edit mission #{missionId}</h2>
+    const handleAssignmentOfPeople = async (event) => {
+        event.preventDefault();
 
-        {
-            mission ?
-                <form onSubmit={(e)=> {submitMissionEdit(e)}}>
-                    <label>
-                        Name:
-                        <input type="text" name="name" value={mission.name} onChange={handleInputChange}/><br/>
-                    </label>
+        try {
+            const response = await axios.post('/api/missions/assign-person', {
+                'personId': personId,
+                'missionId': mission.id
+            });
+            console.log(response.data)
 
-                    <label>
-                        Year: 
-                        <input type="number" name="year" value={mission.year} onChange={handleInputChange}/><br/>
-                    </label>
-
-                    <button type="submit">Save</button>
-                </form>
-            : 'loading'
+            loadMission()
+        } catch (error) {
+            console.log(error)
         }
+    }
 
-        <button onClick={() => {setMissionId(null)}}>Go back</button>
+    const handleUnassignmentOfPerson = async (event) => {
+        event.preventDefault();
+      
+        try {
+            const response = await axios.post('/api/missions/unassign-person', {
+                'personId': event.target.dataset.personId,
+                'missionId': mission.id
+            });
+            console.log(response.data)
+
+            loadMission()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    return <>
+        <div>
+            <h2>Edit mission #{missionId}</h2>
+                {
+                    mission ?
+                        <form onSubmit={(e)=> {submitMissionEdit(e)}}>
+                            <label>
+                                Name:
+                                <input type="text" name="name" value={mission.name} onChange={handleInputChange}/><br/>
+                            </label>
+
+                            <label>
+                                Year: 
+                                <input type="number" name="year" value={mission.year} onChange={handleInputChange}/><br/>
+                            </label>
+
+                            <button type="submit">Save</button>
+                        </form>
+                    : 'loading'
+                }
+
+            <button onClick={() => {setMissionId(null)}}>Go back</button>
+        </div>
+
+        <div>
+            <h2>Manage people:</h2>
+
+            <div>
+                <h3>People assigned:</h3>
+                <ul>
+                    {
+                        mission && mission.people.length > 0 ? 
+                            mission.people.map(person => {
+                                return <li key={person.id}>
+                                        {person.name}
+                                        <button onClick={handleUnassignmentOfPerson} data-person-id={person.id}>&times;</button>
+                                    </li>
+                            })
+                        : '----'
+                    }
+                </ul>
+            </div>
+
+            <div>
+                <h3>Assign new:</h3>
+                {
+                    people ?
+                    <form onSubmit={handleAssignmentOfPeople}>
+                        <select name="people" id="people" onChange={(e) => {setPersonId(e.target.value)}}>
+                            <option value={null}>Select a person</option>
+                            {
+                                people.map(person => {
+                                    return <option key={person.id} value={person.id}>{person.name}</option>
+                                })
+                            }
+                        </select>
+
+                        <button type="submit">Assign</button>
+                    </form> : 'loading'
+                }
+            </div>
+        </div>
     </>
 }

@@ -40,7 +40,9 @@ export default function Navigation() {
             <Link to="/people-of-interest">
                 <button>P.o.I.</button>
             </Link>
-            <Link to="/missions">Missions</Link>
+            <Link to="/missions">
+                <button>Missions</button>
+            </Link>
 
             {
                 user
